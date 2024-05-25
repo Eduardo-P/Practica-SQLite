@@ -8,4 +8,17 @@ function search() {
     const year = document.getElementById('year').value;
     const score = document.getElementById('score').value;
     const votes = document.getElementById('votes').value;
+
+    fetch('http://localhost:3000/searh', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, movie_title, year, score, votes })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => console.error('Error:', error));
 }
