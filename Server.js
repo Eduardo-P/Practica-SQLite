@@ -1,4 +1,4 @@
-const express = require('express')
+const express = require('express') // ERROR - modulo express no se puede encontrar
 const bp = require('body-parser')
 const path = require('path')
 const app = express()
