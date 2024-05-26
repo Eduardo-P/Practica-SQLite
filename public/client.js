@@ -9,7 +9,7 @@ function search() {
     const score = document.getElementById('score').value;
     const votes = document.getElementById('votes').value;
 
-    fetch('http://localhost:3000/searh', {
+    fetch('http://localhost:3000/search', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
