@@ -19,7 +19,7 @@ app.get('/', (request, response) => {
 })
 
 // Conectar a la base de datos SQLite
-const db = new sqlite3.Database('imdb.db', (err) => {
+const db = new sqlite3.Database('C:/Users/eduar/OneDrive/Documents/Tarea UNSA/Tercer semestre/pweb 2/Teoria/Teo04/imdb.db', (err) => {
     if (err) {
         console.error('Error conectando a la base de datos:', err.message);
         return;
