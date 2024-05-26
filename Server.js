@@ -28,7 +28,6 @@ const db = new sqlite3.Database('C:/Users/eduar/OneDrive/Documents/Tarea UNSA/Te
 });
 
 app.post('/search', (req, res) => {
-    console.log("peticion recibida");
     const { name, movie_title, year, score, votes } = req.body;
 
     let query = `
@@ -38,14 +37,35 @@ app.post('/search', (req, res) => {
         INNER JOIN Actor ON Casting.ActorId = Actor.ActorId
         WHERE 1=1
     `;
+    let params = [];
 
-    db.all(query, (err, rows) => {
+    if (name) {
+        query += ' AND Actor.Name LIKE ?';
+        params.push(`%${name}%`);
+    }
+    if (movie_title) {
+        query += ' AND Movie.Title LIKE ?';
+        params.push(`%${movie_title}%`);
+    }
+    if (year) {
+        query += ' AND Movie.Year = ?';
+        params.push(year);
+    }
+    if (score) {
+        query += ' AND Movie.Score = ?';
+        params.push(score);
+    }
+    if (votes) {
+        query += ' AND Movie.Votes = ?';
+        params.push(votes);
+    }
+
+    db.all(query, params, (err, rows) => {
         if (err) {
             res.status(500).json({ error: err.message });
             return;
         }
         res.json(rows);
-        console.log(rows.Name);
     });
 });
 
