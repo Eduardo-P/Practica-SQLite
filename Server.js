@@ -1,5 +1,5 @@
 const express = require('express')
-const sqlite3 = require('sqlite3').verbose(); // ERROR - modulo sqlite3 no esta instalado
+const sqlite3 = require('sqlite3').verbose();
 const bp = require('body-parser')
 const path = require('path')
 const app = express()
