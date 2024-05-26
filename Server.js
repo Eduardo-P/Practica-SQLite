@@ -27,6 +27,29 @@ const db = new sqlite3.Database('C:/Users/eduar/OneDrive/Documents/Tarea UNSA/Te
     console.log('Conectado a la base de datos SQLite');
 });
 
+app.post('/search', (req, res) => {
+    console.log("peticion recibida");
+    const { name, movie_title, year, score, votes } = req.body;
+
+    let query = `
+        SELECT Actor.Name, Movie.Title, Movie.Year, Movie.Score, Movie.Votes
+        FROM Movie
+        INNER JOIN Casting ON Movie.MovieID = Casting.MovieID
+        INNER JOIN Actor ON Casting.ActorId = Actor.ActorId
+        WHERE 1=1
+    `;
+
+    db.all(query, (err, rows) => {
+        if (err) {
+            res.status(500).json({ error: err.message });
+            return;
+        }
+        res.json(rows);
+        console.log(rows.Name);
+    });
+});
+
+/*
 // Ejecuta una consulta
 db.serialize(() => {
     db.each(`SELECT name FROM sqlite_master WHERE type='table'`, (err, row) => {
@@ -44,3 +67,4 @@ db.close((err) => {
     }
     console.log('Cerrada la conexión con la base de datos SQLite.');
 });
+*/
