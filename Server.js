@@ -26,3 +26,21 @@ const db = new sqlite3.Database('imdb.db', (err) => {
     }
     console.log('Conectado a la base de datos SQLite');
 });
+
+// Ejecuta una consulta
+db.serialize(() => {
+    db.each(`SELECT name FROM sqlite_master WHERE type='table'`, (err, row) => {
+        if (err) {
+            console.error(err.message);
+        }
+        console.log(row.name);
+    });
+});
+
+// Cierra la base de datos
+db.close((err) => {
+    if (err) {
+        console.error(err.message);
+    }
+    console.log('Cerrada la conexión con la base de datos SQLite.');
+});
